@@ -10,12 +10,11 @@ def search_view(request):
     if request.method == 'POST':
         search_term = request.POST.get('search_term')
         search_type = request.POST.get('search_type')
-        first_air_date_year = request.POST.get('first_air_date_year')
         # Call the appropriate function based on the selection
         if search_type == 'movie':
             return movie_search(request, search_term)
         elif search_type == 'tv':
-            return tv_shows(request, search_term, first_air_date_year)
+            return tv_shows(request, search_term)
 
 # Function to fetch movie data
 def movie_search(request, search_term):
@@ -30,10 +29,9 @@ def movie_search(request, search_term):
     return render(request, 'movie.html', {'data': data, 'search_term': search_term})
 
 # Function to fetch TV series data
-def tv_shows(request,search_term, first_air_date_year):
+def tv_shows(request,search_term):
     search_term = request.POST.get('search_term')
-    first_air_date_year = request.POST.get('first_air_date_year')
-    url = f"https://api.themoviedb.org/3/search/tv?query={search_term}&first_air_date_year={first_air_date_year}&include_adult=true&language=en-US&page=1"
+    url = f"https://api.themoviedb.org/3/search/tv?query={search_term}&include_adult=true&language=en-US&page=1"
     headers = {
         "accept": "application/json",
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MGYyYTkwNzY2MzI1MzdkYTUwZjUxNmQ2MGIxMzFhYyIsIm5iZiI6MTczMDg2NzI3Ny4yODkwNzA4LCJzdWIiOiI2NzI5ZmVlYWQwYzA3MmFkNDhmNTFiOTYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.o-BoIxukfIu419TZKONGvwZu6ahgncCNuA7ogOLjBWg"

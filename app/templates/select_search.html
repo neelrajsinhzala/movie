@@ -50,6 +50,25 @@
         #dateField {
             transition: opacity 0.3s ease;
         }
+        /* Responsive styling for mobile */
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
+            .form-container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .btn-primary {
+                font-size: 14px;
+                padding: 8px;
+            }
+            #first_air_date_year {
+                font-size: 14px; /* Smaller font size for date input */
+            }
+        }
     </style>
     <meta name="google-site-verification" content="ELnzLIMTI8EOvSobqw8HZ7L_tqyu4Td8k5J4K9psqOw" />
     <meta name="description" content="Explore the best movies, tv shows, and detailed. Find out what\'s new in cinema.">
@@ -76,37 +95,9 @@
                         <label class="form-check-label" for="tv">TV Series</label>
                     </div>
                 </div>
-                <div class="mb-3" id="dateField" style="display: none; opacity: 0;">
-                    <label for="first_air_date_year" class="form-label">First Air Date Year:</label>
-                    <input type="date" name="first_air_date_year" id="first_air_date_year" class="form-control">
-                </div>
                 <button type="submit" class="btn btn-primary mt-3">Search</button>
             </form>
         </div>
     </div>
-
-    <script>
-        // JavaScript to toggle "First Air Date Year" visibility with smooth opacity transition
-        document.addEventListener('DOMContentLoaded', function () {
-            const tvRadio = document.getElementById('tv');
-            const movieRadio = document.getElementById('movie');
-            const dateField = document.getElementById('dateField');
-
-            // Toggle visibility and smooth opacity transition based on selection
-            tvRadio.addEventListener('change', function () {
-                if (tvRadio.checked) {
-                    dateField.style.display = 'block';
-                    setTimeout(() => dateField.style.opacity = 1, 10);  // Smooth fade-in
-                }
-            });
-
-            movieRadio.addEventListener('change', function () {
-                if (movieRadio.checked) {
-                    dateField.style.opacity = 0;
-                    setTimeout(() => dateField.style.display = 'none', 300);  // Smooth fade-out
-                }
-            });
-        });
-    </script>
 </body>
 </html>
