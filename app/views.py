@@ -1,4 +1,3 @@
-from wsgiref import headers
 from django.shortcuts import render
 import requests
 

@@ -6,11 +6,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <title>{{ tv_details.name }} - TV Show Details</title>
     <style>
-        body {
+        body 
+        {
             background-color: #f3f4f6;
             font-family: Arial, sans-serif;
         }
-        .container {
+        .container 
+        {
             background-color: #ffffff;
             border-radius: 8px;
             padding: 20px;
@@ -18,43 +20,52 @@
             max-width: 1000px;
             margin-top: 40px;
         }
-        h1 {
+        h1 
+        {
             text-align: center;
             color: #343a40;
             font-weight: bold;
         }
-        h4 {
+        h4 
+        {
             color: #007bff;
             font-weight: bold;
             display: inline-block;
             margin-bottom: 15px;
         }
-        .text-center img {
+        .text-center img 
+        {
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .list-group-item strong {
+        .list-group-item strong 
+        {
             color: #343a40;
         }
-        .card {
+        .card 
+        {
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border: none;
             border-radius: 8px;
         }
-        .card img {
+        .card img 
+        {
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
         }
-        .btn-primary {
+        .btn-primary 
+        {
             background-color: #007bff;
             border: none;
             padding: 10px 20px;
             transition: background-color 0.3s ease;
         }
-        .btn-primary:hover {
+        .btn-primary:hover 
+        {
             background-color: #0056b3;
         }
-        .back-btn-container {
+        .back-btn-container 
+        {
             text-align: center;
             margin-top: 30px;
         }
@@ -68,15 +79,16 @@
                 <img src="https://image.tmdb.org/t/p/w500{{ tv_details.poster_path }}" alt="{{ tv_details.name }} poster" style="width: 200px;">
             {% endif %}
         </div>
-        
         <div class="mt-4">
             <h4>Overview:</h4>
             <p>{{ tv_details.overview }}</p>
         </div>
-        
         <ul class="list-group mt-4">
-            <li class="list-group-item"><strong>First Air Date:</strong> {{ tv_details.first_air_date }}</li>
-            <li class="list-group-item"><strong>Genres:</strong> 
+            <li class="list-group-item">
+                <strong>First Air Date:</strong> {{ tv_details.first_air_date }}
+            </li>
+            <li class="list-group-item">
+                <strong>Genres:</strong> 
                 {% for genre in tv_details.genres %}
                     {{ genre.name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
