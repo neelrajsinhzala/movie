@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <title>Movies App - Movie Shows</title>
+    <style>
+        /* Page Styling */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .header-title {
+            color: #343a40;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        /* Table Styling */
+        .table-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .table thead th {
+            background-color: #343a40;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .table tbody td {
+            vertical-align: middle;
+        }
+        .no-image {
+            color: #888;
+            font-style: italic;
+        }
+        .poster-img {
+            width: 90px;
+            height: auto;
+            border-radius: 4px;
+        }
+        /* Button Styling */
+        .btn-view, .btn-primary {
+            color: #fff;
+            background-color: #007bff;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-view:hover, .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .back-btn-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        // JavaScript function to filter the table based on search input
+        function searchTable() {
+            const input = document.getElementById("searchInput").value.toUpperCase();
+            const table = document.getElementById("movieShowsTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                let match = false;
+                const cells = rows[i].getElementsByTagName("td");
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j] && cells[j].innerText.toUpperCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+                
+                rows[i].style.display = match ? "" : "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="header-title">Movie Shows</h1>
+        </div>
+        <!-- Search Input and Sort Button -->
+        <div class="mb-4 d-flex justify-content-between">
+            <input type="text" id="searchInput" onkeyup="searchTable()" class="form-control" placeholder="Search movies...">
+        </div>
+        <div class="table-container">
+            <table id="movieShowsTable" class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Poster</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col">Genres</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Overview</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Popularity</th>
+                        <th scope="col">Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                        <tr>
+                            <td>
+                                {% if item.poster_path %}
+                                    <img src="https://image.tmdb.org/t/p/w500{{ item.poster_path }}" alt="{{ item.title }} poster" class="poster-img">
+                                {% else %}
+                                    <span class="no-image">No image available</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'movie_details' item.id %}" class="text-decoration-none text-dark d-block fw-bold">{{ item.title }}</a>
+                            </td>
+                            <td>{{ item.release_date }}</td>
+                            <td>{% for genre in item.genres %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+                            <td>{{ item.vote_average }}</td>
+                            <td>{{ item.overview|truncatewords:20 }}</td>
+                            <td>{{ item.original_language|upper }}</td>
+                            <td>{{ item.popularity }}</td>
+                            <td>{{ item.vote_count }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                <p class="text-muted">No movies found.</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="back-btn-container">
+            <a href="/" class="btn btn-primary">Back to Search</a>
+        </div>
+    </div>
+</body>
+</html>
